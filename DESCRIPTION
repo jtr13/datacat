@@ -11,4 +11,5 @@ Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-
+URL: https://github.com/jtr13/datacat
+BugReports: https://github.com/jtr13/datacat/issues
