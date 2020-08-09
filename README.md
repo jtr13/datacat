@@ -1,5 +1,5 @@
 # datacat
-Functions to Help Explore and Categorize Datasets
+Function to Help Explore and Categorize Datasets
 
 Install with:
 ```
