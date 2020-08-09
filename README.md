@@ -22,8 +22,7 @@ Output columns are as follows:
 
 * `package` name of package
 * `name` name of dataset
-* `dim` dimensions of dataset or `NA` for vectors, lists
-* `length` length (vectors only)
+* `dim_or_len` `dim()` or `length()` (whichever is not `NULL`)
 * `first_class` first class listed
 * `n_cols` number of numeric columns
 * `i_cols` number of integer columns
