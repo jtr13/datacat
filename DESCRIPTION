@@ -1,6 +1,6 @@
 Package: datacat
 Type: Package
-Title: What the Package Does (One Line, Title Case)
+Title: Functions to Help Explore and Categorize Datasets
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Joyce",
