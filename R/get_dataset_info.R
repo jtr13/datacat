@@ -5,8 +5,9 @@
 #'
 #' @param packagenames a character vector providing the package(s) to look in for data sets, or `NULL`. If `NULL`, all loaded packages will be searched.
 #'
-#' @section Output columns
-#' @md
+#' @param allclasses a logical. If `TRUE` a column with all classes (not only the first one listed) is included. Defaults to `FALSE`.
+#'
+#' @section Output columns:
 #'
 #' * `package` name of package
 #' * `name` name of dataset
@@ -19,7 +20,7 @@
 #' * `c_cols` number of character columns
 #' * `d_cols` number of date columns
 #' * `other_cols` number of other columns
-#' * `allclasses` full list of classes
+#' * `allclasses` full list of classes [optional]
 #'
 #'
 #' @examples
@@ -33,23 +34,8 @@
 #' x <- get_dataset_info(c("fivethirtyeight", "pgmm"))
 #' View(x)
 
-get_type_count <- function(dataset, datatype) {
-  if("data.frame" %in% class(get(dataset))) {
-    num_cols <- summary(as.factor(unlist(lapply(get(dataset), class))))[datatype]
-    if (is.na(num_cols)) num_cols <- 0
-  } else {
-    num_cols <- NA
-  }
-  num_cols
-}
-
-# load data if not lazy load
-loaddata <- function(package) {
-  datasets <- data(package = package)$results[,3]
-  if (!exists(datasets[1])) data(list = datasets, package = package)
-}
-
-get_dataset_info <- function(packagenames = NULL) {
+#' @export
+get_dataset_info <- function(packagenames = NULL, allclasses = FALSE) {
   datasetnames <- data(package = packagenames)$results[,3]
   datasetpackages <- data(package = packagenames)$results[,1]
 
@@ -75,10 +61,7 @@ get_dataset_info <- function(packagenames = NULL) {
 
   length <- unlist(purrr::map(datasetnames, ~ifelse(is.null(dim(get(.x))), length(get(.x)), NA)))
 
-  first_class_listed <- unlist(purrr::map(datasetnames, ~class(get(.x))[1]))
-
-  allclasses <- tibble::enframe(purrr::map(datasetnames, ~class(get(.x))),
-                                name = NULL, value = "allclasses")
+  first_class <- unlist(purrr::map(datasetnames, ~class(get(.x))[1]))
 
   n_cols <- unlist(purrr::map2(datasetnames, "numeric", get_type_count))
   i_cols <- unlist(purrr::map2(datasetnames, "integer", get_type_count))
@@ -91,9 +74,32 @@ get_dataset_info <- function(packagenames = NULL) {
   # this needs work
   #  cnames <- unlist(purrr::map(datasetnames, ~paste(colnames(data.frame(get(.x))), collapse = " ")))
 
-  dplyr::bind_cols(tibble::tibble(package = datasetpackages, name = datasetnames, dim,
-                                  length, first_class_listed, n_cols, i_cols, f_cols,
-                                  c_cols, d_cols, other_cols), allclasses)
+  output_df <- dplyr::bind_cols(tibble::tibble(package = datasetpackages, name = datasetnames, dim,
+                                  length, first_class, n_cols, i_cols, f_cols,
+                                  c_cols, d_cols, other_cols))
 
+  if (allclasses) {
+    allclasses <- unlist(purrr::map(datasetnames, ~paste(class(get(.x)), collapse = ", ")))
+    output_df <- output_df %>% mutate(allclasses = allclasses)
+  }
+
+  output_df
 }
 
+# Helpers --------------------------------------------------
+
+get_type_count <- function(dataset, datatype) {
+  if("data.frame" %in% class(get(dataset))) {
+    num_cols <- summary(as.factor(unlist(lapply(get(dataset), class))))[datatype]
+    if (is.na(num_cols)) num_cols <- 0
+  } else {
+    num_cols <- NA
+  }
+  num_cols
+}
+
+# load data if not lazy load
+loaddata <- function(package) {
+  datasets <- data(package = package)$results[,3]
+  if (!exists(datasets[1])) data(list = datasets, package = package)
+}

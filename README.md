@@ -7,12 +7,18 @@ install.packages("remotes")
 remotes::install_github("jtr13/datacat")
 ```
 
-This package has one function, `get_dataset_info()`, which provides an overview of all datasets in a package or packages. It is an alternative to `data()` which only provides
+This package has one function, `get_dataset_info()`, which provides an overview of all datasets in a package or packages. It is an alternative to `data()` which only provides the names of the datasets and short descriptions. This function works at the package level. If you are interested in detail about one dataset at a time, there are better options such as `skimr::skim()`. 
 
-Usage:
+To get info on all **loaded** datasets, use `get_dataset_info()`.
+
+To get info on any specific packages, include the package names, such as:
+`get_dataset_info(c("ggplot2", "pgmm"))`
+
+It is helpful to view the results with `View()`. If viewing the output in the Console, it's helpful to increase the printing width with `options(width = 100)`.
+
+### Examples
 
 ```
-> options(width = 100)
 > library(datacat)
 > get_dataset_info()
 # A tibble: 104 x 11
@@ -29,4 +35,28 @@ Usage:
  9 datasets Formaldehyde  6  2        NA data.frame         2      0      0      0      0          0
 10 datasets HairEyeColor  4  4  2     NA table             NA     NA     NA     NA     NA         NA
 # … with 94 more rows
+```
+
+
+```
+> get_dataset_info(c("pgmm", "ggplot2"))
+# A tibble: 14 x 11
+   package name           dim       length first_class n_cols i_cols f_cols c_cols d_cols other_cols
+   <chr>   <chr>          <chr>     <lgl>  <chr>        <dbl>  <dbl>  <dbl>  <dbl>  <dbl>      <dbl>
+ 1 pgmm    coffee         43  14    NA     data.frame      13      0      1      0      0          0
+ 2 pgmm    olive          572  10   NA     data.frame      10      0      0      0      0          0
+ 3 pgmm    wine           178  28   NA     data.frame      28      0      0      0      0          0
+ 4 ggplot2 diamonds       53940  10 NA     tbl_df           6      1      3      0      0          0
+ 5 ggplot2 economics      574  6    NA     spec_tbl_df      5      0      0      0      1          0
+ 6 ggplot2 economics_long 2870  4   NA     tbl_df           2      0      0      1      1          0
+ 7 ggplot2 faithfuld      5625  3   NA     tbl_df           3      0      0      0      0          0
+ 8 ggplot2 luv_colours    657  4    NA     data.frame       3      0      0      1      0          0
+ 9 ggplot2 midwest        437  28   NA     tbl_df          15     10      0      3      0          0
+10 ggplot2 mpg            234  11   NA     tbl_df           1      4      0      6      0          0
+11 ggplot2 msleep         83  11    NA     tbl_df           6      0      0      5      0          0
+12 ggplot2 presidential   11  4     NA     tbl_df           0      0      0      2      2          0
+13 ggplot2 seals          1155  4   NA     tbl_df           4      0      0      0      0          0
+14 ggplot2 txhousing      8602  9   NA     tbl_df           6      2      0      1      0          0
+```
+
 
