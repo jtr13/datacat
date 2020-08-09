@@ -40,16 +40,16 @@ Output columns are as follows:
 # A tibble: 104 x 10
    package  name           dim_or_len first_class    n_cols i_cols f_cols c_cols d_cols other_cols
    <chr>    <chr>          <chr>      <chr>           <dbl>  <dbl>  <dbl>  <dbl>  <dbl>      <dbl>
- 1 datasets AirPassengers  6  2       ts                 NA     NA     NA     NA     NA         NA
- 2 datasets BJsales        84  5      ts                 NA     NA     NA     NA     NA         NA
- 3 datasets BJsales.lead   578  4     ts                 NA     NA     NA     NA     NA         NA
- 4 datasets BOD            176  3     data.frame          2      0      0      0      0          0
- 5 datasets CO2            1860  4    nfnGroupedData      2      0      3      0      0          0
- 6 datasets ChickWeight    6  2       nfnGroupedData      2      0      2      0      0          0
- 7 datasets DNase          4  4  2    nfnGroupedData      2      0      1      0      0          0
- 8 datasets EuStockMarkets 66  3      mts                 4      0      0      0      0          0
- 9 datasets Formaldehyde   72  2      data.frame          2      0      0      0      0          0
-10 datasets HairEyeColor   50  5      table              NA     NA     NA     NA     NA         NA
+ 1 datasets AirPassengers  144        ts                 NA     NA     NA     NA     NA         NA
+ 2 datasets BJsales        150        ts                 NA     NA     NA     NA     NA         NA
+ 3 datasets BJsales.lead   150        ts                 NA     NA     NA     NA     NA         NA
+ 4 datasets BOD            6  2       data.frame          2      0      0      0      0          0
+ 5 datasets CO2            84  5      nfnGroupedData      2      0      3      0      0          0
+ 6 datasets ChickWeight    578  4     nfnGroupedData      2      0      2      0      0          0
+ 7 datasets DNase          176  3     nfnGroupedData      2      0      1      0      0          0
+ 8 datasets EuStockMarkets 1860  4    mts                 4      0      0      0      0          0
+ 9 datasets Formaldehyde   6  2       data.frame          2      0      0      0      0          0
+10 datasets HairEyeColor   4  4  2    table              NA     NA     NA     NA     NA         NA
 # … with 94 more rows
 ```
 

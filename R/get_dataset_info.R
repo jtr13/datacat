@@ -48,14 +48,14 @@ get_dataset_info <- function(packagenames = NULL, allclasses = FALSE) {
   datasetnames <- unlist(purrr::map(strsplit(datasetnames, " "), ~.x[[1]]))
 
 
-  dim <- purrr::map_chr(datasetnames,
+  d <- purrr::map_chr(datasetnames,
                         ~ifelse(length(dim(get(.x))) > 0,
                                 paste(dim(get(.x)), collapse = "  "),
                                 NA))
 
-  length <- unlist(purrr::map(datasetnames, ~ifelse(is.null(dim(get(.x))), length(get(.x)), NA)))
+  l <- unlist(purrr::map(datasetnames, ~ifelse(is.null(dim(get(.x))), length(get(.x)), NA)))
 
-  dim_or_len <- na.omit(c(dim, length))
+  dim_or_len <- purrr::map2_chr(d, l, ~na.omit(c(.x, .y)))
 
   ncol <- unlist(purrr::map(datasetnames,
                             ~ifelse(length(dim(get(.x))) == 2,
@@ -83,7 +83,7 @@ get_dataset_info <- function(packagenames = NULL, allclasses = FALSE) {
 
   if (allclasses) {
     allclasses <- unlist(purrr::map(datasetnames, ~paste(class(get(.x)), collapse = ", ")))
-    output_df <- output_df %>% mutate(allclasses = allclasses)
+    output_df <- output_df %>% dplyr::mutate(allclasses = allclasses)
   }
 
   output_df
