@@ -19,8 +19,7 @@ finds all datasets in a specified package and returns a tibble with information 
 \itemize{
 \item \code{package} name of package
 \item \code{name} name of dataset
-\item \code{dim} dimensions of dataset or \code{NA} for vectors, lists
-\item \code{length} length (vectors only)
+\item \code{dim_or_len} \code{dim()} or \code{length()} (whichever is not \code{NULL})
 \item \code{first_class} first class listed
 \item \code{n_cols} number of numeric columns
 \item \code{i_cols} number of integer columns

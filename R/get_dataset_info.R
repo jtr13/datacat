@@ -11,8 +11,7 @@
 #'
 #' * `package` name of package
 #' * `name` name of dataset
-#' * `dim` dimensions of dataset or `NA` for vectors, lists
-#' * `length` length (vectors only)
+#' * `dim_or_len` `dim()` or `length()` (whichever is not `NULL`)
 #' * `first_class` first class listed
 #' * `n_cols` number of numeric columns
 #' * `i_cols` number of integer columns
@@ -54,12 +53,16 @@ get_dataset_info <- function(packagenames = NULL, allclasses = FALSE) {
                                 paste(dim(get(.x)), collapse = "  "),
                                 NA))
 
+  length <- unlist(purrr::map(datasetnames, ~ifelse(is.null(dim(get(.x))), length(get(.x)), NA)))
+
+  dim_or_len <- na.omit(c(dim, length))
+
   ncol <- unlist(purrr::map(datasetnames,
                             ~ifelse(length(dim(get(.x))) == 2,
                                     dim(get(.x))[[2]],
                                     NA)))
 
-  length <- unlist(purrr::map(datasetnames, ~ifelse(is.null(dim(get(.x))), length(get(.x)), NA)))
+
 
   first_class <- unlist(purrr::map(datasetnames, ~class(get(.x))[1]))
 
@@ -74,9 +77,9 @@ get_dataset_info <- function(packagenames = NULL, allclasses = FALSE) {
   # this needs work
   #  cnames <- unlist(purrr::map(datasetnames, ~paste(colnames(data.frame(get(.x))), collapse = " ")))
 
-  output_df <- dplyr::bind_cols(tibble::tibble(package = datasetpackages, name = datasetnames, dim,
-                                  length, first_class, n_cols, i_cols, f_cols,
-                                  c_cols, d_cols, other_cols))
+  output_df <- dplyr::bind_cols(tibble::tibble(package = datasetpackages, name = datasetnames,
+                                               dim_or_len, first_class, n_cols, i_cols, f_cols,
+                                               c_cols, d_cols, other_cols))
 
   if (allclasses) {
     allclasses <- unlist(purrr::map(datasetnames, ~paste(class(get(.x)), collapse = ", ")))
