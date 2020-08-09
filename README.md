@@ -48,7 +48,7 @@ Output columns are as follows:
  5 datasets CO2           84  5       NA nfnGroupedDa…      2      0      3      0      0          0
  6 datasets ChickWeight   578  4      NA nfnGroupedDa…      2      0      2      0      0          0
  7 datasets DNase         176  3      NA nfnGroupedDa…      2      0      1      0      0          0
- 8 datasets EuStockMarke… 1860  4     NA mts               NA     NA     NA     NA     NA         NA
+ 8 datasets EuStockMarke… 1860  4     NA mts                4      0      0      0      0          0
  9 datasets Formaldehyde  6  2        NA data.frame         2      0      0      0      0          0
 10 datasets HairEyeColor  4  4  2     NA table             NA     NA     NA     NA     NA         NA
 # … with 94 more rows

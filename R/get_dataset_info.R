@@ -89,8 +89,11 @@ get_dataset_info <- function(packagenames = NULL, allclasses = FALSE) {
 # Helpers --------------------------------------------------
 
 get_type_count <- function(dataset, datatype) {
-  if("data.frame" %in% class(get(dataset))) {
-    num_cols <- summary(as.factor(unlist(lapply(get(dataset), class))))[datatype]
+  dataset <- get(dataset)
+  dsclass <- class(dataset)
+  if ("matrix" %in% dsclass) dataset <- data.frame(dataset)
+  if(("data.frame" %in% dsclass) | "matrix" %in% dsclass) {
+    num_cols <- summary(as.factor(unlist(lapply(dataset, class))))[datatype]
     if (is.na(num_cols)) num_cols <- 0
   } else {
     num_cols <- NA
