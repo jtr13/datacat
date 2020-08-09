@@ -13,7 +13,7 @@
 #' * `name` name of dataset
 #' * `dim` dimensions of dataset or `NA` for vectors, lists
 #' * `length` length (vectors only)
-#' * `first_class_listed` first class listed
+#' * `first_class` first class listed
 #' * `n_cols` number of numeric columns
 #' * `i_cols` number of integer columns
 #' * `f_cols` number of factor columns

@@ -16,6 +16,23 @@ To get info on any specific packages, include the package names, such as:
 
 It is helpful to view the results with `View()`. If viewing the output in the Console, it's helpful to increase the printing width with `options(width = 100)`.
 
+### Output
+
+Output columns are as follows:
+
+* `package` name of package
+* `name` name of dataset
+* `dim` dimensions of dataset or `NA` for vectors, lists
+* `length` length (vectors only)
+* `first_class` first class listed
+* `n_cols` number of numeric columns
+* `i_cols` number of integer columns
+* `f_cols` number of factor columns
+* `c_cols` number of character columns
+* `d_cols` number of date columns
+* `other_cols` number of other columns
+* `allclasses` full list of classes [optional]
+
 ### Examples
 
 ```

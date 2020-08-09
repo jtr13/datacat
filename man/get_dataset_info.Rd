@@ -21,7 +21,7 @@ finds all datasets in a specified package and returns a tibble with information 
 \item \code{name} name of dataset
 \item \code{dim} dimensions of dataset or \code{NA} for vectors, lists
 \item \code{length} length (vectors only)
-\item \code{first_class_listed} first class listed
+\item \code{first_class} first class listed
 \item \code{n_cols} number of numeric columns
 \item \code{i_cols} number of integer columns
 \item \code{f_cols} number of factor columns
