@@ -4,12 +4,21 @@
 \alias{get_dataset_info}
 \title{Get detailed info on R package datasets}
 \usage{
-get_dataset_info(packagenames = NULL, allclasses = FALSE)
+get_dataset_info(
+  packagenames = NULL,
+  include_package = TRUE,
+  allclasses = FALSE,
+  link = FALSE
+)
 }
 \arguments{
 \item{packagenames}{a character vector providing the package(s) to look in for data sets, or \code{NULL}. If \code{NULL}, all loaded packages will be searched.}
 
 \item{allclasses}{a logical. If \code{TRUE} a column with all classes (not only the first one listed) is included. Defaults to \code{FALSE}.}
+
+\item{link}{a logical. If \code{TRUE} \code{name} column links to dataset documentation on rdrr.io. Helpful for \code{.html} output. Defaults to \code{FALSE}.}
+
+\item{include_pacakge}{a logical. If \code{TRUE} a column with the package name is included. Defaults to \code{TRUE}.}
 }
 \description{
 finds all datasets in a specified package and returns a tibble with information on the dimensions of the datasets as well as data types. It is an alternative to \code{data()} which simply lists the datasets with short descriptions.

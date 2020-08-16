@@ -5,7 +5,11 @@
 #'
 #' @param packagenames a character vector providing the package(s) to look in for data sets, or `NULL`. If `NULL`, all loaded packages will be searched.
 #'
+#' @param include_pacakge a logical. If `TRUE` a column with the package name is included. Defaults to `TRUE`.
+#'
 #' @param allclasses a logical. If `TRUE` a column with all classes (not only the first one listed) is included. Defaults to `FALSE`.
+#'
+#' @param link a logical. If `TRUE` `name` column links to dataset documentation on rdrr.io. Helpful for `.html` output. Defaults to `FALSE`.
 #'
 #' @section Output columns:
 #'
@@ -34,7 +38,10 @@
 #' View(x)
 
 #' @export
-get_dataset_info <- function(packagenames = NULL, allclasses = FALSE) {
+get_dataset_info <- function(packagenames = NULL,
+                             include_package = TRUE,
+                             allclasses = FALSE,
+                             link = FALSE) {
   datasetnames <- data(package = packagenames)$results[,3]
   datasetpackages <- data(package = packagenames)$results[,1]
 
@@ -85,6 +92,11 @@ get_dataset_info <- function(packagenames = NULL, allclasses = FALSE) {
     allclasses <- unlist(purrr::map(datasetnames, ~paste(class(get(.x)), collapse = ", ")))
     output_df <- output_df %>% dplyr::mutate(allclasses = allclasses)
   }
+
+  if (link) output_df <- output_df %>%
+    dplyr::mutate(name = paste0("https://rdrr.io/cran/", package, "/man/", name, ".html"))
+
+  if (!include_package) output_df <- output_df %>% dplyr::select(-package)
 
   output_df
 }
