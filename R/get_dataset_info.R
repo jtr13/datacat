@@ -94,9 +94,10 @@ get_dataset_info <- function(packagenames = NULL,
   }
 
 # from https://rpubs.com/erblast/369527
-  if (link) {
-    output_df$link <- paste0("<a target=_blank href=https://rdrr.io/cran", output_df$package, "/man/", output_df$name, ".html>", output_df$name, "</a>")
-  }
+  if (link) output_df <- output_df %>%
+    dplyr::mutate(name = paste0("<a target=_blank href=https://rdrr.io/cran",
+                                package, "/man/", name, ".html>", name, "</a>"))
+
 
   if (!include_package) output_df <- output_df %>% dplyr::select(-package)
 
