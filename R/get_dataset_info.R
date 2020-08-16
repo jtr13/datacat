@@ -94,9 +94,21 @@ get_dataset_info <- function(packagenames = NULL,
   }
 
 # from https://rpubs.com/erblast/369527
-  if (link) output_df <- output_df %>%
-    dplyr::mutate(name = paste0("<a target=_blank href=https://rdrr.io/cran/",
-                                package, "/man/", name, ".html>", name, "</a>"))
+
+link_exists <- function(link) {
+    !is.na(tryCatch(xml2::read_html(link),
+                   error = function(e) {NA}))
+  }
+
+
+  if (link) {
+    output_df <- output_df %>%
+      dplyr::mutate(link = paste0("https://rdrr.io/cran/",
+                                package, "/man/", name, ".html"))
+    output_df$name2 <- purrr::map2_chr(output_df$link, output_df$name,
+                                       ~ifelse(link_exists(.x),
+                                paste0("<a target=_blank href=", .x, ">", .y, "</a>"), .y))
+  }
 
 
   if (!include_package) output_df <- output_df %>% dplyr::select(-package)
