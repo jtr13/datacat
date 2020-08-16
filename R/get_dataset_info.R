@@ -95,7 +95,7 @@ get_dataset_info <- function(packagenames = NULL,
 
 # from https://rpubs.com/erblast/369527
   if (link) output_df <- output_df %>%
-    dplyr::mutate(name = paste0("<a target=_blank href=https://rdrr.io/cran",
+    dplyr::mutate(name = paste0("<a target=_blank href=https://rdrr.io/cran/",
                                 package, "/man/", name, ".html>", name, "</a>"))
 
 
