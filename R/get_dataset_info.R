@@ -104,10 +104,10 @@ link_exists <- function(link) {
   if (link) {
     output_df <- output_df %>%
       dplyr::mutate(link = paste0("https://rdrr.io/cran/",
-                                package, "/man/", name, ".html"))
-    output_df$name2 <- purrr::map2_chr(output_df$link, output_df$name,
-                                       ~ifelse(link_exists(.x),
-                                paste0("<a target=_blank href=", .x, ">", .y, "</a>"), .y))
+                                package, "/man/", name, ".html")) %>%
+      dplyr::mutate(name = purrr::map2_chr(link, name, ~ifelse(link_exists(.x),
+                                paste0("<a target=_blank href=", .x, ">", .y, "</a>"), .y))) %>%
+      dplyr::select(-link)
   }
 
 
