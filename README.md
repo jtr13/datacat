@@ -59,22 +59,22 @@ Output columns are as follows:
 ```
 > data_xray(c("pgmm", "ggplot2"))
 # A tibble: 14 x 12
-   package name    nr_or_len nc    add_dim first_class n_cols i_cols f_cols c_cols d_cols other_cols
-   <chr>   <chr>   <chr>     <chr> <chr>   <chr>        <dbl>  <dbl>  <dbl>  <dbl>  <dbl>      <dbl>
- 1 pgmm    coffee  43        14    NA      data.frame      13      0      1      0      0          0
- 2 pgmm    olive   572       10    NA      data.frame      10      0      0      0      0          0
- 3 pgmm    wine    178       28    NA      data.frame      28      0      0      0      0          0
- 4 ggplot2 diamon… 53940     10    NA      tbl_df           6      1      3      0      0          0
- 5 ggplot2 econom… 574       6     NA      spec_tbl_df      5      0      0      0      1          0
- 6 ggplot2 econom… 2870      4     NA      tbl_df           2      0      0      1      1          0
- 7 ggplot2 faithf… 5625      3     NA      tbl_df           3      0      0      0      0          0
- 8 ggplot2 luv_co… 657       4     NA      data.frame       3      0      0      1      0          0
- 9 ggplot2 midwest 437       28    NA      tbl_df          15     10      0      3      0          0
-10 ggplot2 mpg     234       11    NA      tbl_df           1      4      0      6      0          0
-11 ggplot2 msleep  83        11    NA      tbl_df           6      0      0      5      0          0
-12 ggplot2 presid… 11        4     NA      tbl_df           0      0      0      2      2          0
-13 ggplot2 seals   1155      4     NA      tbl_df           4      0      0      0      0          0
-14 ggplot2 txhous… 8602      9     NA      tbl_df           6      2      0      1      0          0
+   package name           nr_or_len nc    add_dim first_class n_cols i_cols f_cols c_cols d_cols other_cols
+   <chr>   <chr>          <chr>     <chr> <chr>   <chr>        <dbl>  <dbl>  <dbl>  <dbl>  <dbl>      <dbl>
+ 1 pgmm    coffee         43        14    NA      data.frame      13      0      1      0      0          0
+ 2 pgmm    olive          572       10    NA      data.frame      10      0      0      0      0          0
+ 3 pgmm    wine           178       28    NA      data.frame      28      0      0      0      0          0
+ 4 ggplot2 diamonds       53940     10    NA      tbl_df           6      1      3      0      0          0
+ 5 ggplot2 economics      574       6     NA      spec_tbl_df      5      0      0      0      1          0
+ 6 ggplot2 economics_long 2870      4     NA      tbl_df           2      0      0      1      1          0
+ 7 ggplot2 faithfuld      5625      3     NA      tbl_df           3      0      0      0      0          0
+ 8 ggplot2 luv_colours    657       4     NA      data.frame       3      0      0      1      0          0
+ 9 ggplot2 midwest        437       28    NA      tbl_df          15     10      0      3      0          0
+10 ggplot2 mpg            234       11    NA      tbl_df           1      4      0      6      0          0
+11 ggplot2 msleep         83        11    NA      tbl_df           6      0      0      5      0          0
+12 ggplot2 presidential   11        4     NA      tbl_df           0      0      0      2      2          0
+13 ggplot2 seals          1155      4     NA      tbl_df           4      0      0      0      0          0
+14 ggplot2 txhousing      8602      9     NA      tbl_df           6      2      0      1      0          0
 ```
 
 
