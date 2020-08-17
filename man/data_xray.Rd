@@ -28,7 +28,9 @@ finds all datasets in a specified package and returns a tibble with information 
 \itemize{
 \item \code{package} name of package
 \item \code{name} name of dataset
-\item \code{dim_or_len} \code{dim()} or \code{length()} (whichever is not \code{NULL})
+\item \code{nr_or_len} \code{nrow()} or \code{length()} (whichever is not \code{NULL})
+\item \code{nc} \code{ncol()}
+\item \code{add_dim} additional dimensions (>= 3, such as for tables)
 \item \code{first_class} first class listed
 \item \code{n_cols} number of numeric columns
 \item \code{i_cols} number of integer columns
