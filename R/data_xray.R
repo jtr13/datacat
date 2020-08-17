@@ -28,17 +28,17 @@
 #'
 #' @examples
 #'
-#' x <- get_dataset_info("ggplot2")
+#' x <- data_xray("ggplot2")
 #' View(x)
 #'
-#' x <- get_dataset_info()
+#' x <- data_xray()
 #' View(x)
 #'
-#' x <- get_dataset_info(c("fivethirtyeight", "pgmm"))
+#' x <- data_xray(c("fivethirtyeight", "pgmm"))
 #' View(x)
 
 #' @export
-get_dataset_info <- function(packagenames = NULL,
+data_xray <- function(packagenames = NULL,
                              include_package = TRUE,
                              allclasses = FALSE,
                              link = FALSE) {
