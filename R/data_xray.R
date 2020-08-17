@@ -23,7 +23,7 @@
 #' * `c_cols` number of character columns
 #' * `d_cols` number of date columns
 #' * `other_cols` number of other columns
-#' * `allclasses` full list of classes [optional]
+#' * `allclasses` full list of classes (optional)
 #'
 #'
 #' @examples
