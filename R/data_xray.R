@@ -15,7 +15,9 @@
 #'
 #' * `package` name of package
 #' * `name` name of dataset
-#' * `dim_or_len` `dim()` or `length()` (whichever is not `NULL`)
+#' * `nr_or_len` `nrow()` or `length()` (whichever is not `NULL`)
+#' * `nc` `ncol()`
+#' * `add_dim` additional dimensions (>= 3, such as for tables)
 #' * `first_class` first class listed
 #' * `n_cols` number of numeric columns
 #' * `i_cols` number of integer columns
@@ -24,7 +26,6 @@
 #' * `d_cols` number of date columns
 #' * `other_cols` number of other columns
 #' * `allclasses` full list of classes (optional)
-#'
 #'
 #' @examples
 #'
@@ -54,24 +55,25 @@ data_xray <- function(packagenames = NULL,
   # get rid of everything after space in dataset name
   datasetnames <- unlist(purrr::map(strsplit(datasetnames, " "), ~.x[[1]]))
 
-
-  d <- purrr::map_chr(datasetnames,
-                        ~ifelse(length(dim(get(.x))) > 0,
-                                paste(dim(get(.x)), collapse = "  "),
-                                NA))
+  nr <- purrr::map_chr(datasetnames,
+                      ~ifelse(is.null(nrow(get(.x))), NA, nrow(get(.x))))
 
   l <- unlist(purrr::map(datasetnames, ~ifelse(is.null(dim(get(.x))), length(get(.x)), NA)))
 
-  dim_or_len <- purrr::map2_chr(d, l, ~na.omit(c(.x, .y)))
+  nr_or_len <- purrr::map2_chr(nr, l, ~na.omit(c(.x, .y)))
+
+  nc <- purrr::map_chr(datasetnames, ~ifelse(is.null(ncol(get(.x))), NA, ncol(get(.x))))
+
+  add_dim <- purrr::map_chr(datasetnames,
+                            ~ifelse(length(dim(get(.x))) > 2,
+                                    paste(dim(get(.x))[3:length(dim(get(.x)))],
+                                          collapse = "  "), NA))
+  first_class <- unlist(purrr::map(datasetnames, ~class(get(.x))[1]))
 
   ncol <- unlist(purrr::map(datasetnames,
                             ~ifelse(length(dim(get(.x))) == 2,
                                     dim(get(.x))[[2]],
                                     NA)))
-
-
-
-  first_class <- unlist(purrr::map(datasetnames, ~class(get(.x))[1]))
 
   n_cols <- unlist(purrr::map2(datasetnames, "numeric", get_type_count))
   i_cols <- unlist(purrr::map2(datasetnames, "integer", get_type_count))
@@ -85,7 +87,7 @@ data_xray <- function(packagenames = NULL,
   #  cnames <- unlist(purrr::map(datasetnames, ~paste(colnames(data.frame(get(.x))), collapse = " ")))
 
   output_df <- dplyr::bind_cols(tibble::tibble(package = datasetpackages, name = datasetnames,
-                                               dim_or_len, first_class, n_cols, i_cols, f_cols,
+                                               nr_or_len, nc, add_dim, first_class, n_cols, i_cols, f_cols,
                                                c_cols, d_cols, other_cols))
 
   if (allclasses) {
