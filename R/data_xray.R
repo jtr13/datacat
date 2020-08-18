@@ -5,10 +5,6 @@
 #'
 #' @param packagenames a character vector providing the package(s) to look in for data sets, or `NULL`. If `NULL`, all loaded packages will be searched.
 #'
-#' @param include_pacakge a logical. If `TRUE` a column with the package name is included. Defaults to `TRUE`.
-#'
-#' @param allclasses a logical. If `TRUE` a column with all classes (not only the first one listed) is included. Defaults to `FALSE`.
-#'
 #' @param link a logical. If `TRUE` `name` column links to dataset documentation on rdrr.io. Helpful for `.html` output. Defaults to `FALSE`.
 #'
 #' @section Output columns:
@@ -18,14 +14,13 @@
 #' * `nr_or_len` `nrow()` or `length()` (whichever is not `NULL`)
 #' * `nc` `ncol()`
 #' * `add_dim` additional dimensions (>= 3, such as for tables)
-#' * `first_class` first class listed
+#' * `classes` dataset classes
 #' * `n_cols` number of numeric columns
 #' * `i_cols` number of integer columns
 #' * `f_cols` number of factor columns
 #' * `c_cols` number of character columns
 #' * `d_cols` number of date columns
 #' * `other_cols` number of other columns
-#' * `allclasses` full list of classes (optional)
 #'
 #' @examples
 #'
@@ -68,7 +63,8 @@ data_xray <- function(packagenames = NULL,
                             ~ifelse(length(dim(get(.x))) > 2,
                                     paste(dim(get(.x))[3:length(dim(get(.x)))],
                                           collapse = "  "), NA))
-  first_class <- unlist(purrr::map(datasetnames, ~class(get(.x))[1]))
+  classes <- unlist(purrr::map(datasetnames, ~paste(class(get(.x)),
+                                                    collapse = ", ")))
 
   ncol <- unlist(purrr::map(datasetnames,
                             ~ifelse(length(dim(get(.x))) == 2,
@@ -83,17 +79,10 @@ data_xray <- function(packagenames = NULL,
 
   other_cols <- ncol - (n_cols + i_cols + f_cols + c_cols + d_cols)
 
-  # this needs work
-  #  cnames <- unlist(purrr::map(datasetnames, ~paste(colnames(data.frame(get(.x))), collapse = " ")))
-
   output_df <- dplyr::bind_cols(tibble::tibble(package = datasetpackages, name = datasetnames,
-                                               nr_or_len, nc, add_dim, first_class, n_cols, i_cols, f_cols,
+                                               nr_or_len, nc, add_dim, classes, n_cols, i_cols, f_cols,
                                                c_cols, d_cols, other_cols))
 
-  if (allclasses) {
-    allclasses <- unlist(purrr::map(datasetnames, ~paste(class(get(.x)), collapse = ", ")))
-    output_df <- output_df %>% dplyr::mutate(allclasses = allclasses)
-  }
 
 # from https://rpubs.com/erblast/369527
 
@@ -111,9 +100,6 @@ link_exists <- function(link) {
                                 paste0("<a target=_blank href=", .x, ">", .y, "</a>"), .y))) %>%
       dplyr::select(-link)
   }
-
-
-  if (!include_package) output_df <- output_df %>% dplyr::select(-package)
 
   output_df
 }

@@ -14,11 +14,7 @@ data_xray(
 \arguments{
 \item{packagenames}{a character vector providing the package(s) to look in for data sets, or \code{NULL}. If \code{NULL}, all loaded packages will be searched.}
 
-\item{allclasses}{a logical. If \code{TRUE} a column with all classes (not only the first one listed) is included. Defaults to \code{FALSE}.}
-
 \item{link}{a logical. If \code{TRUE} \code{name} column links to dataset documentation on rdrr.io. Helpful for \code{.html} output. Defaults to \code{FALSE}.}
-
-\item{include_pacakge}{a logical. If \code{TRUE} a column with the package name is included. Defaults to \code{TRUE}.}
 }
 \description{
 finds all datasets in a specified package and returns a tibble with information on the dimensions of the datasets as well as data types. It is an alternative to \code{data()} which simply lists the datasets with short descriptions.
@@ -31,14 +27,13 @@ finds all datasets in a specified package and returns a tibble with information 
 \item \code{nr_or_len} \code{nrow()} or \code{length()} (whichever is not \code{NULL})
 \item \code{nc} \code{ncol()}
 \item \code{add_dim} additional dimensions (>= 3, such as for tables)
-\item \code{first_class} first class listed
+\item \code{classes} dataset classes
 \item \code{n_cols} number of numeric columns
 \item \code{i_cols} number of integer columns
 \item \code{f_cols} number of factor columns
 \item \code{c_cols} number of character columns
 \item \code{d_cols} number of date columns
 \item \code{other_cols} number of other columns
-\item \code{allclasses} full list of classes (optional)
 }
 }
 
