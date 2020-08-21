@@ -38,6 +38,14 @@ data_xray <- function(packagenames = NULL,
                              include_package = TRUE,
                              allclasses = FALSE,
                              link = FALSE) {
+  # find uninstalled packages
+  # https://stackoverflow.com/a/62809204/5314416 suggests find.package
+  missingpkgs <- packagenames[purrr::map_lgl(packagenames,
+     ~ifelse(length(find.package(.x, quiet=TRUE)) == 0, TRUE, FALSE))]
+
+  # install them
+  purrr::map(missingpkgs, install.packages)
+
   datasetnames <- data(package = packagenames)$results[,3]
   datasetpackages <- data(package = packagenames)$results[,1]
 
@@ -101,6 +109,9 @@ link_exists <- function(link) {
       dplyr::select(-link)
   }
 
+  # remove recently installed packings
+  purrr::map(missingpkgs, remove.packages)
+
   output_df
 }
 
@@ -124,3 +135,4 @@ loaddata <- function(package) {
   datasets <- data(package = package)$results[,3]
   if (!exists(datasets[1])) data(list = datasets, package = package)
 }
+
