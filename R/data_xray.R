@@ -46,6 +46,12 @@ data_xray <- function(packagenames = NULL,
   # install them
   purrr::map(missingpkgs, install.packages)
 
+  # find out of date packages
+  oldpkgs <- packagenames[packagenames %in% old.packages()]
+
+  # update them
+  purrr::map(packagenames,install.packages)
+
   datasetnames <- data(package = packagenames)$results[,3]
   datasetpackages <- data(package = packagenames)$results[,1]
 
