@@ -44,7 +44,7 @@ data_xray <- function(packagenames = NULL,
      ~ifelse(length(find.package(.x, quiet=TRUE)) == 0, TRUE, FALSE))]
 
   # install them
-  purrr::map(missingpkgs, install.packages)
+  purrr::map(missingpkgs, install.packages, dependencies = FALSE)
 
   # find out of date packages
   oldpkgs <- packagenames[packagenames %in% old.packages()]
