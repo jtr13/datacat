@@ -7,7 +7,7 @@ install.packages("remotes")
 remotes::install_github("jtr13/datacat")
 ```
 
-This package has one function, `data_xray()`, which provides an overview of all datasets in a package or packages. It is an alternative to `data()` which only provides the names of the datasets and short descriptions. This function works at the package level. If you are interested in detail about one dataset at a time, there are better options such as `skimr::skim()`. 
+This package has one function, `data_xray()`, which provides an overview of all datasets in a package or packages. It is an alternative to `data()` which only provides the names of the datasets and short descriptions. This function works at the package level.
 
 To get info on all **loaded** datasets, use `data_xray()`.
 
