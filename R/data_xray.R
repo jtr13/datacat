@@ -47,7 +47,7 @@ data_xray <- function(packagenames = NULL,
   if (length(missingpkgs) > 0) purrr::map(missingpkgs, install.packages, dependencies = FALSE, repos = "http://cran.us.r-project.org")
 
   # find out of date packages
-  oldpkgs <- packagenames[packagenames %in% old.packages()]
+  oldpkgs <- packagenames[packagenames %in% old.packages(repos = "http://cran.us.r-project.org")]
 
   # update them
   if (length(oldpkgs) > 0) purrr::map(oldpkgs, install.packages, repos = "http://cran.us.r-project.org")
