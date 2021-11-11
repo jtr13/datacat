@@ -34,6 +34,7 @@ finds all datasets in a specified package and returns a tibble with information 
 \item \code{c_cols} number of character columns
 \item \code{d_cols} number of date columns
 \item \code{other_cols} number of other columns
+\item \code{missing} proportion of missing values overall
 }
 }
 

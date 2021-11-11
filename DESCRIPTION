@@ -13,7 +13,7 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/jtr13/datacat
 BugReports: https://github.com/jtr13/datacat/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 Imports: 
     magrittr

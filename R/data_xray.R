@@ -21,6 +21,7 @@
 #' * `c_cols` number of character columns
 #' * `d_cols` number of date columns
 #' * `other_cols` number of other columns
+#' * `missing` proportion of missing values overall
 #'
 #' @examples
 #'
@@ -92,10 +93,21 @@ data_xray <- function(packagenames = NULL,
   d_cols <- unlist(purrr::map2(datasetnames, "Date", get_type_count))
 
   other_cols <- ncol - (n_cols + i_cols + f_cols + c_cols + d_cols)
+  missing <- unlist(purrr::map(datasetnames, ~round(sum(is.na(get(.x)))/(dim(get(.x))[1]*dim(get(.x))[2]), 3)))
 
-  output_df <- dplyr::bind_cols(tibble::tibble(package = datasetpackages, name = datasetnames,
-                                               nr_or_len, nc, add_dim, classes, n_cols, i_cols, f_cols,
-                                               c_cols, d_cols, other_cols))
+  output_df <- dplyr::bind_cols(tibble::tibble(package = datasetpackages,
+                                               name = datasetnames,
+                                               nr_or_len,
+                                               nc,
+                                               add_dim,
+                                               classes,
+                                               n_cols,
+                                               i_cols,
+                                               f_cols,
+                                               c_cols,
+                                               d_cols,
+                                               other_cols,
+                                               missing))
 
 
 # from https://rpubs.com/erblast/369527
