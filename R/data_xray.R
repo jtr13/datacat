@@ -20,8 +20,9 @@
 #' * `f_cols` number of factor columns
 #' * `c_cols` number of character columns
 #' * `d_cols` number of date columns
-#' * `other_cols` number of other columns
 #' * `missing` proportion of missing values overall
+#' * `other_cols` number of other columns
+
 #'
 #' @examples
 #'
@@ -39,6 +40,7 @@ data_xray <- function(packagenames = NULL,
                              include_package = TRUE,
                              allclasses = FALSE,
                              link = FALSE) {
+
   # find uninstalled packages
   # https://stackoverflow.com/a/62809204/5314416 suggests find.package
   missingpkgs <- packagenames[purrr::map_lgl(packagenames,
@@ -93,7 +95,8 @@ data_xray <- function(packagenames = NULL,
   d_cols <- unlist(purrr::map2(datasetnames, "Date", get_type_count))
 
   other_cols <- ncol - (n_cols + i_cols + f_cols + c_cols + d_cols)
-  missing <- unlist(purrr::map(datasetnames, ~round(sum(is.na(get(.x)))/(dim(get(.x))[1]*dim(get(.x))[2]), 3)))
+  missing <- unlist(purrr::map(datasetnames,
+                               ~round(sum(is.na(get(.x)))/length(unlist(get(.x))), 3)))
 
   output_df <- dplyr::bind_cols(tibble::tibble(package = datasetpackages,
                                                name = datasetnames,

@@ -32,7 +32,9 @@ Output columns are as follows:
 * `c_cols` number of character columns
 * `d_cols` number of date columns
 * `other_cols` number of other columns
+* `missing` proportion of missing values overall
 * `allclasses` full list of classes (optional)
+
 
 ### Examples
 
